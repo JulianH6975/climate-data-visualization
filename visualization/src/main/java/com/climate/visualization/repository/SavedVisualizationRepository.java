@@ -13,6 +13,8 @@ public interface SavedVisualizationRepository extends JpaRepository<SavedVisuali
 
     List<SavedVisualization> findByUser(User user);
 
+    List<SavedVisualization> findByUserId(Long id);
+
     List<SavedVisualization> findByIsPublic(boolean isPublic);
 
     List<SavedVisualization> findByUserAndIsPublic(User user, boolean isPublic);
