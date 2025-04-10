@@ -4,6 +4,7 @@ import com.climate.visualization.model.ClimateRecord;
 import com.climate.visualization.model.DataSet;
 import com.climate.visualization.repository.ClimateRecordRepository;
 import com.climate.visualization.service.ClimateRecordService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Service
 public class ClimateRecordServiceImpl implements ClimateRecordService {
 
     ClimateRecordRepository climateRecordRepository;

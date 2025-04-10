@@ -5,12 +5,14 @@ import com.climate.visualization.model.User;
 import com.climate.visualization.repository.SavedVisualizationRepository;
 import com.climate.visualization.repository.UserRepository;
 import com.climate.visualization.service.UserInterface;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserInterface {
 
     UserRepository userRepository;
@@ -60,13 +62,20 @@ public class UserServiceImpl implements UserInterface {
     }
 
     @Override
+    @Transactional
     public void changePassword(Long userId, String oldPassword, String newPassword) {
-
+        User user = userRepository.findById(userId).orElse(null);
+        user.setPassword(oldPassword);
+        user.setPassword(newPassword);
+        userRepository.save(user);
     }
 
     @Override
+    @Transactional
     public User assignRole(Long userId, String role) {
-        return null;
+        User user = userRepository.findById(userId).orElse(null);
+        user.setRole(role);
+        return userRepository.save(user);
     }
 
     @Override

@@ -5,11 +5,13 @@ import com.climate.visualization.model.DataSet;
 import com.climate.visualization.repository.ClimateRecordRepository;
 import com.climate.visualization.repository.DataSetRepository;
 import com.climate.visualization.service.DataSetService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Service
 public class DataSetServiceImpl implements DataSetService {
 
     DataSetRepository dataSetRepository;
