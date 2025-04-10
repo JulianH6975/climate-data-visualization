@@ -20,4 +20,7 @@ public interface DataSetRepository extends JpaRepository<DataSet, Long> {
 
     @Query("SELECT d FROM DataSet d ORDER BY SIZE(d.records) DESC")
     List<DataSet> findDatasetsOrderByRecordCountDesc();
+
+    @Query("Select d FROM DataSet d ORDER BY d.createdAt DESC")
+    List<DataSet> findDatasetsOrderByCreatedAtDesc();
 }

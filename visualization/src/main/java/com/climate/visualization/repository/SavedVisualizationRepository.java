@@ -28,4 +28,6 @@ public interface SavedVisualizationRepository extends JpaRepository<SavedVisuali
 
     @Query("SELECT sv FROM SavedVisualization sv WHERE LOWER(sv.name) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR LOWER(sv.description) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     List<SavedVisualization> searchByNameOrDescription(String searchTerm);
+
+
 }

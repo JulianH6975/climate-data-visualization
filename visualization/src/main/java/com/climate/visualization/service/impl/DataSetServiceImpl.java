@@ -126,7 +126,13 @@ public class DataSetServiceImpl implements DataSetService {
 
     @Override
     public List<DataSet> findMostRecentDataSets(int limit) {
-        return List.of();
+        List<DataSet> mostRecentDataSets = new ArrayList<>();
+        List<DataSet> datasets = dataSetRepository.findDatasetsOrderByRecordCountDesc();
+        int realLimit = Math.min(datasets.size(), limit);
+        for(int i = 0; i < realLimit; i++) {
+            mostRecentDataSets.add(datasets.get(i));
+        }
+        return mostRecentDataSets;
     }
 
     @Override

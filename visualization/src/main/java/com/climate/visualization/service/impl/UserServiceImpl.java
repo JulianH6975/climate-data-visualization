@@ -2,16 +2,19 @@ package com.climate.visualization.service.impl;
 
 import com.climate.visualization.model.SavedVisualization;
 import com.climate.visualization.model.User;
+import com.climate.visualization.repository.SavedVisualizationRepository;
 import com.climate.visualization.repository.UserRepository;
 import com.climate.visualization.service.UserInterface;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserInterface {
 
     UserRepository userRepository;
+    SavedVisualizationRepository savedVisualizationRepository;
 
     @Override
     @Transactional
@@ -68,47 +71,64 @@ public class UserServiceImpl implements UserInterface {
 
     @Override
     public List<User> findByRole(String role) {
-        return List.of();
+        return userRepository.findByRole(role);
     }
 
     @Override
+    @Transactional
     public User addVisualization(Long userId, SavedVisualization visualization) {
-        return null;
+        User user = userRepository.findById(userId).orElse(null);
+        user.addVisualization(visualization);
+        return userRepository.save(user);
     }
 
     @Override
+    @Transactional
     public User removeVisualization(Long userId, Long visualizationId) {
+        User user = userRepository.findById(userId).orElse(null);
+        SavedVisualization savedVisualization = savedVisualizationRepository.findById(visualizationId).orElse(null);
+        user.removeVisualization(savedVisualization);
+        savedVisualizationRepository.delete(savedVisualization);
+        userRepository.save(user);
         return null;
     }
 
     @Override
     public List<SavedVisualization> getUserVisualizations(Long userId) {
-        return List.of();
+        List<SavedVisualization> savedVisualizations = savedVisualizationRepository.findByUserId(userId);
+        return savedVisualizations;
     }
 
     @Override
     public List<SavedVisualization> getUserPublicVisualizations(Long userId) {
-        return List.of();
+        User user = userRepository.findById(userId).orElse(null);
+        List<SavedVisualization> savedVisualizations = new ArrayList<>();
+        if (user != null) {
+            savedVisualizations = savedVisualizationRepository.findByUserAndIsPublic(user, true);
+        }
+        return savedVisualizations;
+
     }
 
     @Override
     public boolean existsByUsername(String username) {
-        return false;
+        return userRepository.existsByUsername(username);
     }
 
     @Override
     public boolean existsByEmail(String email) {
-        return false;
+        return userRepository.existsByEmail(email);
     }
 
     @Override
     public int getUserVisualizationCount(Long userId) {
-        return 0;
+        int n = savedVisualizationRepository.findByUserId(userId).size();
+        return n;
     }
 
     @Override
     public List<User> findMostActiveUsers(int limit) {
-        return List.of();
+        return null;
     }
 
 

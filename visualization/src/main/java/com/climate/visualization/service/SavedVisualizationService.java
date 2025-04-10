@@ -33,4 +33,24 @@ public interface SavedVisualizationService {
     List<SavedVisualization> findCreatedAfter(LocalDateTime date);
 
     List<SavedVisualization> findModifiedAfter(LocalDateTime date);
+
+
+    List<SavedVisualization> searchByNameOrDescription(String searchTerm);
+
+    // Visibility Management
+    SavedVisualization setPublicStatus(Long visualizationId, boolean isPublic);
+
+    // Sharing
+    String generateSharingLink(Long visualizationId);
+
+    boolean isAccessibleToUser(Long visualizationId, Long userId);
+
+    // Configuration Management
+    SavedVisualization updateConfiguration(Long visualizationId, String newConfiguration);
+
+    // Statistics
+    List<SavedVisualization> findMostViewedVisualizations(int limit);
+
+    // Cloning
+    SavedVisualization cloneVisualization(Long visualizationId, Long newOwnerId, String newName);
 }
