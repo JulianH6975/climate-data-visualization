@@ -4,6 +4,7 @@ import com.climate.visualization.model.SavedVisualization;
 import com.climate.visualization.model.User;
 import com.climate.visualization.repository.SavedVisualizationRepository;
 import com.climate.visualization.service.SavedVisualizationService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
