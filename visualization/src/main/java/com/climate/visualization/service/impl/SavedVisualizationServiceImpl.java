@@ -4,6 +4,7 @@ import com.climate.visualization.model.SavedVisualization;
 import com.climate.visualization.model.User;
 import com.climate.visualization.repository.SavedVisualizationRepository;
 import com.climate.visualization.service.SavedVisualizationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,11 @@ import java.util.Optional;
 public class SavedVisualizationServiceImpl implements SavedVisualizationService {
 
     SavedVisualizationRepository savedVisualizationRepository;
+
+    @Autowired
+    public SavedVisualizationServiceImpl(SavedVisualizationRepository savedVisualizationRepository) {
+        this.savedVisualizationRepository = savedVisualizationRepository;
+    }
 
     @Override
     @Transactional

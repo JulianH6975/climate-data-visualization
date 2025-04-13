@@ -4,6 +4,7 @@ import com.climate.visualization.model.ClimateRecord;
 import com.climate.visualization.model.DataSet;
 import com.climate.visualization.repository.ClimateRecordRepository;
 import com.climate.visualization.service.ClimateRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,11 @@ import java.util.Optional;
 public class ClimateRecordServiceImpl implements ClimateRecordService {
 
     ClimateRecordRepository climateRecordRepository;
+
+    @Autowired
+    public ClimateRecordServiceImpl(ClimateRecordRepository climateRecordRepository) {
+        this.climateRecordRepository = climateRecordRepository;
+    }
 
     @Override
     @Transactional

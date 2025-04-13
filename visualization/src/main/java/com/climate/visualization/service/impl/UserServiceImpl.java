@@ -5,6 +5,7 @@ import com.climate.visualization.model.User;
 import com.climate.visualization.repository.SavedVisualizationRepository;
 import com.climate.visualization.repository.UserRepository;
 import com.climate.visualization.service.UserInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,12 @@ public class UserServiceImpl implements UserInterface {
 
     UserRepository userRepository;
     SavedVisualizationRepository savedVisualizationRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, SavedVisualizationRepository savedVisualizationRepository) {
+        this.userRepository = userRepository;
+        this.savedVisualizationRepository = savedVisualizationRepository;
+    }
 
     @Override
     @Transactional
