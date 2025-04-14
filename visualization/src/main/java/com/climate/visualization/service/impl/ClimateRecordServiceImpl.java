@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -96,8 +97,18 @@ public class ClimateRecordServiceImpl implements ClimateRecordService {
     }
 
     @Override
+    @Transactional
     public List<ClimateRecord> importRecords(List<ClimateRecord> climateRecords, DataSet dataSet) {
-        return List.of();
+        List<ClimateRecord> importRecords = new ArrayList<>();
+        for (ClimateRecord climateRecord : climateRecords) {
+            climateRecord.setDataset(dataSet);
+            ClimateRecord importRecord = climateRecordRepository.save(climateRecord);
+            importRecords.add(importRecord);
+        }
+        if(dataSet.getId() != null) {
+
+        }
+        return importRecords;
     }
 
     @Override

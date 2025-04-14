@@ -3,6 +3,7 @@ package com.climate.visualization.controller;
 import com.climate.visualization.model.ClimateRecord;
 import com.climate.visualization.model.DataSet;
 import com.climate.visualization.service.ClimateRecordService;
+import com.climate.visualization.service.DataSetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,12 @@ import java.util.Map;
 public class ClimateRecordController {
 
     ClimateRecordService recordService;
+    DataSetService dataSetService;
 
     @Autowired
-    public ClimateRecordController(ClimateRecordService recordService) {
+    public ClimateRecordController(ClimateRecordService recordService, DataSetService dataSetService) {
         this.recordService = recordService;
+        dataSetService = dataSetService;
     }
 
     @PostMapping
@@ -136,7 +139,7 @@ public class ClimateRecordController {
             @RequestParam long dataSetId) {
         // Assuming we have a method to find DataSet by ID
         DataSet dataSet = new DataSet(); // This would be fetched from service
-        dataSet.setId(dataSetId);
+        dataSet = dataSetService.save(dataSet);
         List<ClimateRecord> importedRecords = recordService.importRecords(records, dataSet);
         return ResponseEntity.status(HttpStatus.CREATED).body(importedRecords);
     }
